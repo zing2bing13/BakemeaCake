@@ -5,19 +5,23 @@ package com.example.bakemeacake.data.model;
  */
 public class LoggedInUser {
 
-    private String userId;
-    private String displayName;
+    private int userId;
+    private String userName;
+    private String password;
 
-    public LoggedInUser(String userId, String displayName) {
+    public LoggedInUser(int userId, String userName, String password) {
         this.userId = userId;
-        this.displayName = displayName;
+        this.userName = userName;
+        this.password = password;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
     public String getDisplayName() {
-        return displayName;
+        return userName;
     }
+
+    public String getPassword() {return password;}
 }

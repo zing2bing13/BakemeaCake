@@ -2,16 +2,22 @@ package com.example.bakemeacake;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.example.bakemeacake.data.model.LoggedInUser;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "db_BMACSql.db";
     private static final String DATABASE_TABLE_USERNAMES = "UserAccounts";
-    private static final String CreateTable_UserAccounts = "Create Table DATABASE_TABLE_USERNAMES(ID Integer Primary Key AutoIncrement, UserName Text, Password Text)";
+    private static final String COLUMN_NAME_ID = "id";
+    private static final String COLUMN_NAME_USERNAME = "username";
+    private static final String COLUMN_NAME_PASSWORD = "password";
+    private static final String CreateTable_UserAccounts = "Create Table DATABASE_TABLE_USERNAMES("+ COLUMN_NAME_ID + " Integer Primary Key AutoIncrement, " + COLUMN_NAME_USERNAME + " Text, " + COLUMN_NAME_PASSWORD + " Text)";
 
     private static DatabaseHandler myInstance = null;
+
     public static DatabaseHandler getMyInstance(Context context) {
         if(myInstance == null) {
             myInstance = new DatabaseHandler(context.getApplicationContext());
@@ -33,12 +39,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertIntoUserAccts(String userName, String password) {
+    // Get the user from the database based on the username
+    public LoggedInUser getUser(String username) {
+        String userQuery = "Select ID, Password from " + DATABASE_TABLE_USERNAMES + "'" + username + '"';
+        LoggedInUser myUser = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] dbColumns = new String[]{"_ID", "Username", "Password"};
+
+        Cursor dbCursor = db.query(DATABASE_TABLE_USERNAMES, dbColumns, "Username =?", new String[]{username}, null, null, null);
+        while(dbCursor.moveToNext()){
+            int id = dbCursor.getInt(dbCursor.getColumnIndex(COLUMN_NAME_ID));
+            String user = dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME_USERNAME));
+            String pass = dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME_PASSWORD));
+
+            myUser = new LoggedInUser(id, user, pass);
+        }
+        return myUser;
+    }
+
+    // Add the user to the database
+    public long insertUser(String userName, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put("UserName", userName);
         values.put("Password", password);
+        db.close();
 
         return db.insert("DATABASE_TABLE_USERNAMES", null, values);
     }

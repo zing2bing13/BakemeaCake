@@ -17,17 +17,14 @@ public class LoginDataSource {
         DatabaseHandler myDB = null;
         try {
             myDB = new DatabaseHandler(context);
+            myDB.insertUser("test", "test123");
             LoggedInUser user = myDB.getUser(username);
 
             if(user.getPassword().matches(password)) {
                 return new Result.Success<>(user);
             }
-            return null;
-            /*
-            else{
-                return new Result.Error(new IOException("Error Username or password incorrect"));
-            }
 
+            /*
             LoggedInUser fakeUser =
                     new LoggedInUser(
                             012345,
@@ -37,6 +34,8 @@ public class LoginDataSource {
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }
+        return new Result.Error(new Exception("Incorrect username or password"));
+
     }
 
     public void logout() {

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import com.example.bakemeacake.data.model.LoggedInUser;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -14,7 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_NAME_ID = "id";
     private static final String COLUMN_NAME_USERNAME = "username";
     private static final String COLUMN_NAME_PASSWORD = "password";
-    private static final String CreateTable_UserAccounts = "Create Table DATABASE_TABLE_USERNAMES("+ COLUMN_NAME_ID + " Integer Primary Key AutoIncrement, " + COLUMN_NAME_USERNAME + " Text, " + COLUMN_NAME_PASSWORD + " Text)";
+    private static final String CreateTable_UserAccounts = "Create Table " + DATABASE_TABLE_USERNAMES + " (" + COLUMN_NAME_ID + " Integer Primary Key AutoIncrement, " + COLUMN_NAME_USERNAME + " Text, " + COLUMN_NAME_PASSWORD + " Text)";
 
     private static DatabaseHandler myInstance = null;
 
@@ -41,19 +43,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Get the user from the database based on the username
     public LoggedInUser getUser(String username) {
-        String userQuery = "Select ID, Password from " + DATABASE_TABLE_USERNAMES + "'" + username + '"';
         LoggedInUser myUser = null;
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] dbColumns = new String[]{"_ID", "Username", "Password"};
+        String[] dbColumns = new String[]{COLUMN_NAME_ID, COLUMN_NAME_USERNAME, COLUMN_NAME_PASSWORD};
 
-        Cursor dbCursor = db.query(DATABASE_TABLE_USERNAMES, dbColumns, "Username =?", new String[]{username}, null, null, null);
-        while(dbCursor.moveToNext()){
-            int id = dbCursor.getInt(dbCursor.getColumnIndex(COLUMN_NAME_ID));
-            String user = dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME_USERNAME));
-            String pass = dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME_PASSWORD));
-
-            myUser = new LoggedInUser(id, user, pass);
+        try {
+            Cursor dbCursor = db.query(DATABASE_TABLE_USERNAMES, dbColumns, "Username = ?", new String[]{username}, null, null, null);
+            while(dbCursor.moveToNext()){
+                int id = dbCursor.getInt(dbCursor.getColumnIndex(COLUMN_NAME_ID));
+                String user = dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME_USERNAME));
+                String pass = dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME_PASSWORD));
+                myUser = new LoggedInUser(id, user, pass);
+            }
         }
+            catch (Exception error){
+            Log.e("BMAC Error", error.toString());
+        }
+
+
         return myUser;
     }
 

@@ -9,7 +9,13 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_b_m_a_c_recipe_list_window">BMACRecipeListWindow</string>
+
+    <!-- Strings related to Recipe List -->
+    <string name="title_activity_b_m_a_c_recipe_list_window">Bake me a Cake!</string>
+    <string name="button_search">"Search"</string>
+    <string name="button_bakery">"Bakery"</string>
+    <string name="button_signout">"Sign Out"</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

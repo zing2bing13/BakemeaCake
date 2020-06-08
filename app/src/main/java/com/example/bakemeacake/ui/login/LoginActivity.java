@@ -3,6 +3,7 @@ package com.example.bakemeacake.ui.login;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bakemeacake.BMACRecipeListWindow;
 import com.example.bakemeacake.R;
 import com.example.bakemeacake.ui.login.LoginViewModel;
 import com.example.bakemeacake.ui.login.LoginViewModelFactory;
@@ -98,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
+                    loginViewModel.login(LoginActivity.this.getApplicationContext(), usernameEditText.getText().toString(),
                             passwordEditText.getText().toString());
                 }
                 return false;
@@ -109,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
+                loginViewModel.login(LoginActivity.this.getApplicationContext(), usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
         });
@@ -117,7 +119,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
+        // Transfer user to Recipe List Activity
+        Intent MainIntent = new Intent(LoginActivity.this, BMACRecipeListWindow.class);
+        LoginActivity.this.startActivity(MainIntent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 

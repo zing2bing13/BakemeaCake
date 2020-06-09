@@ -3,7 +3,7 @@ package com.example.bakemeacake.ui.login;
 import android.support.annotation.Nullable;
 
 /**
- * Authentication result : success (user details) or error message.
+ * Authentication result : success (user details), failure (user details) or error message.
  */
 class LoginResult {
     @Nullable

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.bakemeacake.BMACRecipeListWindow;
 import com.example.bakemeacake.R;
+import com.example.bakemeacake.RegisterNewUser;
 import com.example.bakemeacake.ui.login.LoginViewModel;
 import com.example.bakemeacake.ui.login.LoginViewModelFactory;
 
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
+        final Button loginButton = findViewById(R.id.button_login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -111,9 +112,17 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(LoginActivity.this.getApplicationContext(), usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                switch (v.getId()){
+                    case R.id.button_login:
+                        loadingProgressBar.setVisibility(View.VISIBLE);
+                        loginViewModel.login(LoginActivity.this.getApplicationContext(), usernameEditText.getText().toString(),
+                                passwordEditText.getText().toString());
+                        break;
+                    case R.id.button_newuser:
+                        Intent RegisterUserIntent = new Intent(LoginActivity.this, RegisterNewUser.class);
+                        startActivity(RegisterUserIntent);
+                        break;
+                }
             }
         });
     }

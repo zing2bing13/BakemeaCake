@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.bakemeacake.data.model.LoggedInUser;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
+    // DB Schema for the UserAccounts database
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "db_BMACSql.db";
     private static final String DATABASE_TABLE_USERNAMES = "UserAccounts";
@@ -17,6 +18,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_NAME_USERNAME = "username";
     private static final String COLUMN_NAME_PASSWORD = "password";
     private static final String CreateTable_UserAccounts = "Create Table " + DATABASE_TABLE_USERNAMES + " (" + COLUMN_NAME_ID + " Integer Primary Key AutoIncrement, " + COLUMN_NAME_USERNAME + " Text, " + COLUMN_NAME_PASSWORD + " Text)";
+
+    // DB Schema for the Recipes database
+    private static final String DATABASE_TABLE_RECIPES = "Recipes";
 
     private static DatabaseHandler myInstance = null;
 

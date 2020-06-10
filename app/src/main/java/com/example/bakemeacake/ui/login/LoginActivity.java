@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.button_login);
+        final Button newUserButton = findViewById(R.id.button_newuser);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -109,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /*
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +125,25 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(RegisterUserIntent);
                         break;
                 }
+            }
+        });
+
+         */
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                loginViewModel.login(LoginActivity.this.getApplicationContext(), usernameEditText.getText().toString(),
+                    passwordEditText.getText().toString());
+            }
+        });
+
+        newUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent RegisterUserIntent = new Intent(LoginActivity.this, RegisterNewUser.class);
+                startActivity(RegisterUserIntent);
             }
         });
     }

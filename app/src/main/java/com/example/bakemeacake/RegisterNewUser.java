@@ -28,7 +28,7 @@ public class RegisterNewUser extends AppCompatActivity {
                 username = usernameText.getText().toString();
                 password = passwordText.getText().toString();
                 myDB.insertUser(username, password);
-                //myDB.close();
+                myDB.close();
                 finish();
             }
         });

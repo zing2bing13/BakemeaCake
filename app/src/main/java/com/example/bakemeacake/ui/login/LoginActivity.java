@@ -21,8 +21,7 @@ import android.widget.Toast;
 
 import com.example.bakemeacake.BMACRecipeListWindow;
 import com.example.bakemeacake.R;
-import com.example.bakemeacake.ui.login.LoginViewModel;
-import com.example.bakemeacake.ui.login.LoginViewModelFactory;
+import com.example.bakemeacake.RegisterNewUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
+        final Button loginButton = findViewById(R.id.button_login);
+        final Button newUserButton = findViewById(R.id.button_newuser);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
+                    return;
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
@@ -112,7 +113,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(LoginActivity.this.getApplicationContext(), usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                    passwordEditText.getText().toString());
+            }
+        });
+
+        newUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent RegisterUserIntent = new Intent(LoginActivity.this, RegisterNewUser.class);
+                startActivity(RegisterUserIntent);
             }
         });
     }

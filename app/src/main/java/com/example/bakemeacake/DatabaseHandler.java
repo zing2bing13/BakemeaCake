@@ -21,6 +21,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // DB Schema for the Recipes database
     private static final String DATABASE_TABLE_RECIPES = "Recipes";
+    private static final String RECIPE_COLUMN_NAME_ID = "id";
+    private static final String RECIPE_COLUMN_NAME_RECIPE = "recipename";
+    private static final String RECIPE_COLUMN_NAME_INGREDIENTS = "ingredients";
+    private static final String RECIPE_COLUMN_NAME_INSTRUCTIONS = "instructions";
+    private static final String RECIPE_COLUMN_NAME_COMMENTS = "comments";
 
     private static DatabaseHandler myInstance = null;
 

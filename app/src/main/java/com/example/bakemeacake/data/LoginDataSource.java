@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.example.bakemeacake.DatabaseHandler;
 import com.example.bakemeacake.data.model.LoggedInUser;
-import com.example.bakemeacake.ui.login.LoginActivity;
 
 import java.io.IOException;
 
@@ -23,14 +22,6 @@ public class LoginDataSource {
             if(user.getPassword().matches(password)) {
                 return new Result.Success<>(user);
             }
-
-            /*
-            LoggedInUser fakeUser =
-                    new LoggedInUser(
-                            012345,
-                            "Jane Doe", "12345");
-            return new Result.Success<>(fakeUser);
-            */
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }

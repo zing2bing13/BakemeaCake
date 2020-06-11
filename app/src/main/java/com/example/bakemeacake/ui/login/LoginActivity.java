@@ -22,8 +22,6 @@ import android.widget.Toast;
 import com.example.bakemeacake.BMACRecipeListWindow;
 import com.example.bakemeacake.R;
 import com.example.bakemeacake.RegisterNewUser;
-import com.example.bakemeacake.ui.login.LoginViewModel;
-import com.example.bakemeacake.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -109,26 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        /*
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.button_login:
-                        loadingProgressBar.setVisibility(View.VISIBLE);
-                        loginViewModel.login(LoginActivity.this.getApplicationContext(), usernameEditText.getText().toString(),
-                                passwordEditText.getText().toString());
-                        break;
-                    case R.id.button_newuser:
-                        Intent RegisterUserIntent = new Intent(LoginActivity.this, RegisterNewUser.class);
-                        startActivity(RegisterUserIntent);
-                        break;
-                }
-            }
-        });
-
-         */
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

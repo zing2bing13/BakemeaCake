@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterNewUser"></activity>
+        <activity android:name=".RegisterNewUser"/>
         <activity
             android:name=".BMACRecipeListWindow"
             android:label="@string/title_activity_b_m_a_c_recipe_list_window"
@@ -23,6 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".util.sharing.Share"/>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.bakemeacake.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
     </application>
 
 </manifest>

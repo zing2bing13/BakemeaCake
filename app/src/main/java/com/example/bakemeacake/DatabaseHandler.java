@@ -20,12 +20,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CreateTable_UserAccounts = "Create Table " + DATABASE_TABLE_USERNAMES + " (" + COLUMN_NAME_ID + " Integer Primary Key AutoIncrement, " + COLUMN_NAME_USERNAME + " Text, " + COLUMN_NAME_PASSWORD + " Text)";
 
     // DB Schema for the Recipes database
+    // DB Schema for the RecipeList Table
     private static final String DATABASE_TABLE_RECIPES = "Recipes";
-    private static final String RECIPE_COLUMN_NAME_ID = "id";
-    private static final String RECIPE_COLUMN_NAME_RECIPE = "recipename";
-    private static final String RECIPE_COLUMN_NAME_INGREDIENTS = "ingredients";
-    private static final String RECIPE_COLUMN_NAME_INSTRUCTIONS = "instructions";
-    private static final String RECIPE_COLUMN_NAME_COMMENTS = "comments";
+    private static final String RECIPE_COLUMN_NAME_RECIPE_ID = "recipeid";
+    private static final String RECIPE_COLUMN_NAME_RECIPE_NAME = "recipename";
+    private static final String RECIPE_COLUMN_NAME_USER_ID = "userid";
+    private static final String CreateTable_RecipeList = "Create Table " + DATABASE_TABLE_RECIPES + " (" + RECIPE_COLUMN_NAME_RECIPE_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_NAME + " Text, " + RECIPE_COLUMN_NAME_USER_ID + " Text)";
+
+    // DB Schema for the Recipe Ingredients table
+    private static final String DATABASE_TABLE_INGREDIENTS = "Ingredients";
+    private static final String RECIPE_COLUMN_NAME_INGREDIENT_ID = "ingredientid";
+    private static final String RECIPE_COLUMN_NAME_RECIPE_ID_FK = "recipeid";
+    private static final String RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT = "amount";
+    private static final String RECIPE_COLUMN_NAME_INGREDIENT_NAME = "ingredientname";
+    private static final String CreateTable_IngredientList = "Create Table " + DATABASE_TABLE_INGREDIENTS + " (" + RECIPE_COLUMN_NAME_INGREDIENT_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_ID_FK + " Integer, " + RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT + " Text, " + RECIPE_COLUMN_NAME_INGREDIENT_NAME + " Text)";
+
+    // DB Schema for the Recipe Instructions table
+    private static final String DATABASE_TABLE_INSTRUCTIONS = "Instructions";
+    private static final String RECIPE_COLUMN_NAME_INSTRUCTION_ID = "instructionid";
+    private static final String RECIPE_COLUMN_NAME_INSTRUCTION_STEP = "step";
+    private static final String RECIPE_COLUMN_NAME_INSTRUCTIONS = "instruction";
+    private static final String CreateTable_InstructionList = "Create Table " + DATABASE_TABLE_INSTRUCTIONS + " (" + RECIPE_COLUMN_NAME_INSTRUCTION_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_ID_FK + " Integer, " + RECIPE_COLUMN_NAME_INSTRUCTION_STEP + " Integer, " + RECIPE_COLUMN_NAME_INSTRUCTIONS + " Text)";
 
     private static DatabaseHandler myInstance = null;
 
@@ -43,6 +58,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CreateTable_UserAccounts);
+        db.execSQL(CreateTable_RecipeList);
+        db.execSQL(CreateTable_IngredientList);
+        db.execSQL(CreateTable_InstructionList);
     }
 
     @Override

@@ -24,8 +24,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_TABLE_RECIPES = "Recipes";
     private static final String RECIPE_COLUMN_NAME_RECIPE_ID = "recipeid";
     private static final String RECIPE_COLUMN_NAME_RECIPE_NAME = "recipename";
-    private static final String RECIPE_COLUMN_NAME_USER_ID = "userid";
-    private static final String CreateTable_RecipeList = "Create Table " + DATABASE_TABLE_RECIPES + " (" + RECIPE_COLUMN_NAME_RECIPE_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_NAME + " Text, " + RECIPE_COLUMN_NAME_USER_ID + " Text)";
+    private static final String RECIPE_COLUMN_NAME_USER_ID_FK = "userid";
+    private static final String CreateTable_RecipeList = "Create Table " + DATABASE_TABLE_RECIPES + " (" + RECIPE_COLUMN_NAME_RECIPE_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_NAME + " Text, " + RECIPE_COLUMN_NAME_USER_ID_FK + " Text)";
 
     // DB Schema for the Recipe Ingredients table
     private static final String DATABASE_TABLE_INGREDIENTS = "Ingredients";

@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.bakemeacake.data.LoginRepository;
+import com.example.bakemeacake.data.model.LoggedInUser;
+
 public class BMACRecipeListWindow extends AppCompatActivity {
 
     @Override

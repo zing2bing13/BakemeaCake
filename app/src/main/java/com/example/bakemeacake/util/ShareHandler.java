@@ -1,6 +1,8 @@
-package com.example.bakemeacake.util.sharing;
+package com.example.bakemeacake.util;
+
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,54 +16,100 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class Share extends Activity {
-    String FILES_AUTHORITY = "com.example.bakemeacake.fileprovider";
-    ShareCompat.IntentReader intentReader;
-    File shareFile;
-    Intent shareIntent;
-    String shareTitle;
-    String shareType;
-    String shareText;
-    Uri shareUri;
+public class ShareHandler extends Activity {
 
-    public void sendShareText(String sendText) {
+    private String FILES_AUTHORITY = "com.example.bakemeacake.fileprovider";
+    private ShareCompat.IntentReader intentReader;
+    private File shareFile;
+    private Intent sendIntent;
+    private Intent shareIntent;
+    private String shareTitle;
+    private String shareType;
+    private String shareText;
+    private Uri shareUri;
+    private Context mContext;
+
+    public ShareHandler(Context context) {
+        mContext = context;
+    }
+
+    public void shareText(String sendText) {
         try {
-            shareType = getString(R.string.sMime_text);
+            shareTitle = mContext.getResources().getString(R.string.share_text);
+            shareType = mContext.getResources().getString(R.string.sMime_text);
 
-            shareIntent = ShareCompat.IntentBuilder.from(this)
-                            .setType(shareType)
-                            .setText(sendText)
-                            .getIntent();
+            sendIntent = new Intent();
+            sendIntent.setType(shareType);
+            sendIntent.setAction(Intent.ACTION_SEND);
 
-            if (shareIntent.resolveActivity(getPackageManager()) != null) {
-                startActivity(shareIntent);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, sendText);
+
+            shareIntent = Intent.createChooser(sendIntent, shareTitle);
+
+            if (shareIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                mContext.startActivity(shareIntent);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void sendShareHTML(String sendHtmlSubject,
-                              String sendHtmlText,
-                              String sendHtmlTo) {
+    public void shareHTML(String sendHtmlTo,
+                              String sendHtmlSubject,
+                              String sendHtmlText) {
         try {
-            shareType = getString(R.string.sMime_html);
+            shareTitle = mContext.getResources().getString(R.string.share_email);
+            shareType = mContext.getResources().getString(R.string.sMime_html);
 
-            shareIntent = ShareCompat.IntentBuilder.from(this)
-                            .setType(shareType)
-                            .setText(sendHtmlText)
-                            .setSubject(sendHtmlSubject)
-                            .addEmailTo(sendHtmlTo)
-                            .getIntent();
+            sendIntent = new Intent();
+            sendIntent.setType(shareType);
+            sendIntent.setAction(Intent.ACTION_SEND);
 
-            if (shareIntent.resolveActivity(getPackageManager()) != null) {
-                startActivity(shareIntent);
+            sendIntent.putExtra(Intent.EXTRA_EMAIL, sendHtmlTo);
+            sendIntent.putExtra(Intent.EXTRA_SUBJECT, sendHtmlSubject);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, sendHtmlText);
+
+            shareIntent = Intent.createChooser(sendIntent, shareTitle);
+
+            if (shareIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                mContext.startActivity(shareIntent);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void sharePhoto(String photoPath) {
+        try {
+            shareTitle = mContext.getResources().getString(R.string.share_photo);
+            shareFile = new File(photoPath);
+
+            // figure out the mime type for the file
+            // for now will only send image/jpeg
+            shareType = mContext.getResources().getString(R.string.sMime_jpeg);
+
+            // get the uri for the specified photo
+            shareUri = FileProvider.getUriForFile(mContext,FILES_AUTHORITY,shareFile);
+
+            sendIntent = new Intent();
+            sendIntent.setType(shareType);
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_STREAM, shareUri);
+
+            shareIntent = Intent.createChooser(sendIntent, shareTitle);
+
+            if (shareIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                mContext.startActivity(shareIntent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Passing context to ShareCompat is either impossible or very poorly documented.
+    // These methods all throw null pointer errors for the base context
+    // unless implemented in the main activity
+    /*
     public void sendShareFile(String sendFile) {
         try {
             shareTitle = getString(R.string.share_generic);
@@ -81,9 +129,8 @@ public class Share extends Activity {
             shareIntent.setData(shareUri);
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            // Start the Share Intent
-            if (shareIntent.resolveActivity(getPackageManager()) != null) {
-                startActivity(Intent.createChooser(shareIntent,shareTitle));
+            if (shareIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                mContext.startActivity(shareIntent);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,6 +194,7 @@ public class Share extends Activity {
             e.printStackTrace();
         }
     }
+    */
 
     private boolean isValidImageType(String fileType) {
         // used to determine if we should process the incoming file

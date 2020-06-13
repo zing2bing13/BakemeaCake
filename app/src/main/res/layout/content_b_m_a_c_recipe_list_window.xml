@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_b_m_a_c_recipe_list_window">
 
     <TextView
+        android:id="@+id/df_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"

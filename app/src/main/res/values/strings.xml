@@ -20,6 +20,23 @@
     <string name="button_bakery">"Bakery"</string>
     <string name="button_signout">"Sign Out"</string>
 
+    <!-- Strings related to sharing -->
+    <string name="share_generic">"Share to…"</string>
+    <string name="share_photo">"Share photo to…"</string>
+    <string name="share_text">"Share recipe to…"</string>
+    <string name="share_email">"Email recipe to…"</string>
+    <string name="sMime_text">"text/plain"</string>
+    <string name="sMime_html">"text/html"</string>
+    <string name="sMime_bmp">"image/bmp"</string>
+    <string name="sMime_gif">"image/gif"</string>
+    <string name="sMime_ico">"image/vnd.microsoft.icon"</string>
+    <string name="sMime_jpeg">"image/jpeg"</string>
+    <string name="sMime_png">"image/png"</string>
+    <string name="sMime_svg">"image/svg+xml"</string>
+    <string name="sMime_tif">"image/tiff"</string>
+    <string name="sMime_webp">"image/webp"</string>
+
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

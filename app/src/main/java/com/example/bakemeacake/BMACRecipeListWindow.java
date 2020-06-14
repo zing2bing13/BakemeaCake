@@ -6,23 +6,46 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
+
+import com.example.bakemeacake.util.ShareHandler;
 
 public class BMACRecipeListWindow extends AppCompatActivity {
+
+    private String shareText = null;
+    private TextView df_TextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_m_a_c_recipe_list_window);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        df_TextView = findViewById(R.id.df_textView);
+        FloatingActionButton fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fabOnClick(view);
             }
         });
+    }
+
+    private void fabOnClick(View v) {
+        shareText = df_TextView.getText().toString();
+
+        if (shareText != null) {
+            ShareHandler shareIntent = new ShareHandler(this);
+            //shareIntent.shareText(shareText);
+            //shareIntent.shareHTML(null, "Cake Recipe", shareText);
+            shareIntent.shareFile(shareText);
+        }
+    }
+
+    private void showFabSnackbar(View v) {
+        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+       .setAction("Action", null).show();
     }
 }

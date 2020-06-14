@@ -22,7 +22,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.bakemeacake.util.BitmapHandler"/>
+        <activity android:name="com.example.bakemeacake.util.IncomingIntentHandler"/>
         <activity android:name="com.example.bakemeacake.util.ShareHandler"/>
+
+        <!-- For future use; incoming intent handling
+        <activity android:name=".AddRecipe" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AddPhoto" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        -->
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.bakemeacake.fileprovider"

@@ -1,34 +1,26 @@
 package com.example.bakemeacake.util;
 
-
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.example.bakemeacake.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
-public class ShareHandler extends Activity {
+public class ShareHandler extends AppCompatActivity {
 
     private String FILES_AUTHORITY = "com.example.bakemeacake.fileprovider";
-    private ShareCompat.IntentReader intentReader;
     private File shareFile;
     private Intent sendIntent;
     private Intent shareIntent;
     private String shareTitle;
     private String shareType;
-    private String shareText;
     private Uri shareUri;
     private Context mContext;
 
@@ -84,6 +76,8 @@ public class ShareHandler extends Activity {
     }
 
     public void shareFile(String filePath) {
+        // Tested against PhotoGalleryApp; retest once image viewer available here
+        // PGA is a different API level, may behave differently.
         boolean boolContinue = true;
         shareTitle = mContext.getResources().getString(R.string.share_photo);
 

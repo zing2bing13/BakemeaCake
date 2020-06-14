@@ -24,6 +24,7 @@
         </activity>
         <activity android:name="com.example.bakemeacake.util.BitmapHandler"/>
         <activity android:name="com.example.bakemeacake.util.IncomingIntentHandler"/>
+        <activity android:name="com.example.bakemeacake.util.PrintHandler"/>
         <activity android:name="com.example.bakemeacake.util.ShareHandler"/>
 
         <!-- For future use; incoming intent handling

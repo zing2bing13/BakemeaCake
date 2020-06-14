@@ -26,7 +26,7 @@
     <string name="share_text">"Share recipe to…"</string>
     <string name="share_email">"Email recipe to…"</string>
     <string name="sMime_text">"text/plain"</string>
-    <string name="sMime_html">"text/html"</string>
+    <string name="sMime_html">"text/HTML"</string>
     <string name="sMime_bmp">"image/bmp"</string>
     <string name="sMime_gif">"image/gif"</string>
     <string name="sMime_ico">"image/vnd.microsoft.icon"</string>
@@ -36,6 +36,10 @@
     <string name="sMime_tif">"image/tiff"</string>
     <string name="sMime_webp">"image/webp"</string>
 
+    <!-- Strings related to printing -->
+    <string name="print_testDoc">"<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p></body></html>"</string>
+    <string name="print_testWeb">"http://developer.android.com/about/index.html"</string>
+    <string name="html_encoding">"UTF-8"</string>
 
     <string name="large_text">
         "Material is the metaphor.\n\n"

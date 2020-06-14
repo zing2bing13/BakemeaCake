@@ -39,8 +39,8 @@ public class BMACRecipeListWindow extends AppCompatActivity {
         if (shareText != null) {
             ShareHandler shareIntent = new ShareHandler(this);
             //shareIntent.shareText(shareText);
-            shareIntent.shareHTML(null, "Cake Recipe", shareText);
-            //shareIntent.shareFile(null);
+            //shareIntent.shareHTML(null, "Cake Recipe", shareText);
+            shareIntent.shareFile(shareText);
         }
     }
 

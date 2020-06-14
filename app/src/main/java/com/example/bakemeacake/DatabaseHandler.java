@@ -181,7 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Ingredient ingredient = new Ingredient();
                 ingredient.ID = dbCursor.getInt(dbCursor.getColumnIndex(COLUMN_NAME_ID));
                 ingredient.Name = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT_NAME));
-                ingredient.Amount = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT));
+                ingredient.Amount = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT));
                 ingredient.Recipe_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID_FK));
                 ingredients.add(ingredient);
             }

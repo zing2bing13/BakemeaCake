@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.example.bakemeacake.util.PrintHandler;
 import com.example.bakemeacake.util.ShareHandler;
 
+import com.example.bakemeacake.data.LoginRepository;
+import com.example.bakemeacake.data.model.LoggedInUser;
+
 public class BMACRecipeListWindow extends AppCompatActivity {
 
     private String shareText = null;

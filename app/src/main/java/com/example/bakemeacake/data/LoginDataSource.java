@@ -16,7 +16,6 @@ public class LoginDataSource {
         DatabaseHandler myDB = null;
         try {
             myDB = new DatabaseHandler(context);
-            myDB.insertUser("test", "test123");
             LoggedInUser user = myDB.getUser(username);
 
             if(user.getPassword().matches(password)) {

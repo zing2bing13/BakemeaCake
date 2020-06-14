@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.util.Patterns;
 
+import com.example.bakemeacake.Session;
 import com.example.bakemeacake.data.LoginRepository;
 import com.example.bakemeacake.data.Result;
 import com.example.bakemeacake.data.model.LoggedInUser;
@@ -32,9 +33,12 @@ public class LoginViewModel extends ViewModel {
     public void login(Context context, String username, String password) {
         // can be launched in a separate asynchronous job
         Result<LoggedInUser> result = loginRepository.login(context, username, password);
+        Session session = new Session(context);
 
         if (result instanceof Result.Success) {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+            session.SetUserID(data.getUserId());
+            session.SetUserName(data.getDisplayName());
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));

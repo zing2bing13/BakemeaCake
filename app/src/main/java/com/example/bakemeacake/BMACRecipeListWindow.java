@@ -1,26 +1,43 @@
 package com.example.bakemeacake;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bakemeacake.data.model.Recipe;
 import com.example.bakemeacake.util.PrintHandler;
 import com.example.bakemeacake.util.ShareHandler;
 
 import com.example.bakemeacake.data.LoginRepository;
 import com.example.bakemeacake.data.model.LoggedInUser;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class BMACRecipeListWindow extends AppCompatActivity {
 
     private String shareText = null;
-    private TextView df_TextView;
+    private Session session = null;
+    private DatabaseHandler dbHandler = null;
+    private ArrayList<Recipe> recipes = null;
+    static final int NEW_ACTIVITY_INTENT_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +46,12 @@ public class BMACRecipeListWindow extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        df_TextView = findViewById(R.id.df_textView);
+        //df_TextView = findViewById(R.id.df_textView);
         FloatingActionButton fab = findViewById(R.id.fab);
+        this.session = new Session(this);
+        this.dbHandler = new DatabaseHandler(this);
+
+        this.populateRecipes();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,12 +59,34 @@ public class BMACRecipeListWindow extends AppCompatActivity {
                 fabOnClick(view);
             }
         });
+
+    }
+
+    private void populateRecipes() {
+         this.recipes = this.dbHandler.GetRecipes(session.GetUserID());
+         ListView listView = findViewById(R.id.recipe_list);
+
+         List<String> items = recipes.stream().map(x -> x.Name).collect(Collectors.toList());
+         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
     }
 
     private void fabOnClick(View v) {
+        Intent intent = new Intent(this, NewRecipeActivity.class);
+        startActivityForResult(intent, this.NEW_ACTIVITY_INTENT_CODE);
         //showFabSnackbar(v);
         //shareText();
-        printHTML();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == this.NEW_ACTIVITY_INTENT_CODE) {
+            Recipe recipe = (Recipe) data.getSerializableExtra("Recipe");
+            if(recipe != null) {
+                recipe.User_ID = this.session.GetUserID();
+                long result = dbHandler.CreateRecipe(recipe);
+                this.populateRecipes();
+            }
+        }
     }
 
     private void showFabSnackbar(View v) {
@@ -52,7 +95,8 @@ public class BMACRecipeListWindow extends AppCompatActivity {
     }
 
     private void shareText() {
-        shareText = df_TextView.getText().toString();
+        //shareText = df_TextView.getText().toString();
+        shareText = null;
 
         if (shareText != null) {
             ShareHandler shareIntent = new ShareHandler(this);
@@ -64,7 +108,8 @@ public class BMACRecipeListWindow extends AppCompatActivity {
 
     private void printHTML() {
         try {
-            shareText = df_TextView.getText().toString();
+            //shareText = df_TextView.getText().toString();
+            shareText = null;
             String htmlEncodedString = TextUtils.htmlEncode(shareText);
             PrintHandler printer = new PrintHandler(this);
             printer.doWebViewPrint(htmlEncodedString);

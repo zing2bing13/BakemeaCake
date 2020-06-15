@@ -237,9 +237,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             while(dbCursor.moveToNext()){
                 Instruction instruction = new Instruction();
                 instruction.ID = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID));
-                instruction.Recipe_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID_FK));
                 instruction.Step = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INSTRUCTION_STEP));
                 instruction.Instruction = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INSTRUCTIONS));
+                instruction.Recipe_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID_FK));
                 instructions.add(instruction);
             }
         }

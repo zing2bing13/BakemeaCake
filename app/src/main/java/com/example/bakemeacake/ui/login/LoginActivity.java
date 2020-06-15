@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bakemeacake.BMACRecipeListWindow;
+import com.example.bakemeacake.ui.recipe.BMACMainActivity;
 import com.example.bakemeacake.R;
 import com.example.bakemeacake.RegisterNewUser;
 
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // Transfer user to Recipe List Activity
-        Intent MainIntent = new Intent(LoginActivity.this, BMACRecipeListWindow.class);
+        Intent MainIntent = new Intent(LoginActivity.this, BMACMainActivity.class);
         LoginActivity.this.startActivity(MainIntent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }

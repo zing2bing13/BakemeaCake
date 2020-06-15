@@ -1,4 +1,4 @@
-package com.example.bakemeacake;
+package com.example.bakemeacake.data.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;

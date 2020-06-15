@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.bakemeacake.data.DAO.DatabaseHandler;
+
 public class RegisterNewUser extends AppCompatActivity {
 
     private DatabaseHandler myDB = null;

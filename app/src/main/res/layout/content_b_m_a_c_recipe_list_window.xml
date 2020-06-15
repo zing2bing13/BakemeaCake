@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".BMACRecipeListWindow"
-    tools:showIn="@layout/activity_b_m_a_c_recipe_list_window">
+    tools:context=".ui.recipe.BMACMainActivity"
+    tools:showIn="@layout/activity_b_m_a_c_main_activity">
 
     <TextView
         android:id="@+id/df_textView"

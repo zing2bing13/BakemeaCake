@@ -2,7 +2,8 @@ package com.example.bakemeacake.data;
 
 import android.content.Context;
 
-import com.example.bakemeacake.DatabaseHandler;
+import com.example.bakemeacake.data.DAO.DatabaseHandler;
+import com.example.bakemeacake.Session;
 import com.example.bakemeacake.data.model.LoggedInUser;
 
 import java.io.IOException;
@@ -28,7 +29,8 @@ public class LoginDataSource {
 
     }
 
-    public void logout() {
-        // TODO: revoke authentication
+    public void logout(Context context) {
+        Session session = new Session(context);
+        session.clearSession();
     }
 }

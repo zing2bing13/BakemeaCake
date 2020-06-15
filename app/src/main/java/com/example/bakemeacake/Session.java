@@ -11,19 +11,21 @@ public class Session {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public void SetUserName(String username){
-        preferences.edit().putString("username", username).commit();
+    public void setUserName(String username){
+        preferences.edit().putString("username", username).apply();
     }
 
-    public void SetUserID(Integer userID){
-        preferences.edit().putInt("userid", userID).commit();
+    public void setUserID(Integer userID){
+        preferences.edit().putInt("userid", userID).apply();
     }
 
-    public String GetUsername(){
+    public String getUsername(){
         return preferences.getString("username","");
     }
 
-    public Integer GetUserID(){
+    public Integer getUserID(){
         return preferences.getInt("userid",0);
     }
+
+    public void clearSession() { preferences.edit().clear().apply(); }
 }

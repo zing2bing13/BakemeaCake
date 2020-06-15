@@ -36,6 +36,15 @@
     <string name="sMime_tif">"image/tiff"</string>
     <string name="sMime_webp">"image/webp"</string>
 
+    <!-- Strings related to Recipe Details -->
+    <string name="edit_recipe_name"><center>"Recipe name"</center></string>
+    <string name="text_ingredient_list"><center>"Ingredient List"</center></string>
+    <string name="text_instructions"><center>"Instructions"</center></string>
+    <string name="edit_ing_amount">""</string>
+    <string name="edit_ingredient">"Recipe ingredient goes here...</string>
+    <string name="edit_instructions">"Recipe instructions go here...</string>
+    <string name="button_add">"Add"</string>
+
 
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -127,4 +136,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

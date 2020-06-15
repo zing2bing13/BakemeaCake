@@ -122,16 +122,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Gets all recipes for a user
     public ArrayList<Recipe> GetRecipes(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] dbColumns = new String[]{COLUMN_NAME_ID, RECIPE_COLUMN_NAME_INGREDIENT_NAME, RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
+        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_INGREDIENT_NAME, RECIPE_COLUMN_NAME_USER_ID};
 
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         try {
             Cursor dbCursor = db.query(DATABASE_TABLE_RECIPES, dbColumns, "User_ID = ?", new String[]{ Integer.toString(userId) }, null, null, null);
-            Recipe recipe = new Recipe();
-            recipe.ID = dbCursor.getInt(dbCursor.getColumnIndex(COLUMN_NAME_ID));
-            recipe.Name = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_NAME));
-            recipe.User_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_USER_ID));
-            recipes.add(recipe);
+            while(dbCursor.moveToNext()) {
+                Recipe recipe = new Recipe();
+                recipe.ID = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID));
+                recipe.Name = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_NAME));
+                recipe.User_ID = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_USER_ID));
+                recipes.add(recipe);
+            }
         }
         catch (Exception error){
             Log.e("BMAC Error", error.toString());
@@ -172,14 +174,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Ingredient> GetIngredients(int recipeId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] dbColumns = new String[]{COLUMN_NAME_ID, RECIPE_COLUMN_NAME_INGREDIENT_NAME, RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
+        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_INGREDIENT_NAME, RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
 
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
         try {
             Cursor dbCursor = db.query(DATABASE_TABLE_INGREDIENTS, dbColumns, "Recipe_ID = ?", new String[]{ Integer.toString(recipeId) }, null, null, null);
             while(dbCursor.moveToNext()){
                 Ingredient ingredient = new Ingredient();
-                ingredient.ID = dbCursor.getInt(dbCursor.getColumnIndex(COLUMN_NAME_ID));
+                ingredient.ID = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID));
                 ingredient.Name = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT_NAME));
                 ingredient.Amount = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT));
                 ingredient.Recipe_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID_FK));
@@ -227,14 +229,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Instruction> GetInstructions(int recipeId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] dbColumns = new String[]{COLUMN_NAME_ID, RECIPE_COLUMN_NAME_INSTRUCTION_STEP, RECIPE_COLUMN_NAME_INSTRUCTIONS, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
+        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_INSTRUCTION_STEP, RECIPE_COLUMN_NAME_INSTRUCTIONS, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
 
         ArrayList<Instruction> instructions = new ArrayList<Instruction>();
         try {
             Cursor dbCursor = db.query(DATABASE_TABLE_INGREDIENTS, dbColumns, "Recipe_ID = ?", new String[]{ Integer.toString(recipeId) }, null, null, null);
             while(dbCursor.moveToNext()){
                 Instruction instruction = new Instruction();
-                instruction.ID = dbCursor.getInt(dbCursor.getColumnIndex(COLUMN_NAME_ID));
+                instruction.ID = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID));
                 instruction.Recipe_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID_FK));
                 instruction.Step = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INSTRUCTION_STEP));
                 instruction.Instruction = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INSTRUCTIONS));

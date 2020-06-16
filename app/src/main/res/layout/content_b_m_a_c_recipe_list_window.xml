@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".BMACRecipeListWindow"
+    tools:context=".ui.recipe.BMACRecipeListWindow"
     tools:showIn="@layout/activity_b_m_a_c_recipe_list_window">
 
     <ListView

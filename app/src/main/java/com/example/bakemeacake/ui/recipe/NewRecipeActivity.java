@@ -1,4 +1,4 @@
-package com.example.bakemeacake;
+package com.example.bakemeacake.ui.recipe;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.bakemeacake.R;
 import com.example.bakemeacake.data.model.Recipe;
 
 public class NewRecipeActivity extends AppCompatActivity {

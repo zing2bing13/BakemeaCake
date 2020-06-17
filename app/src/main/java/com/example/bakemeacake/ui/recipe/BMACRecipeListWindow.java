@@ -1,4 +1,4 @@
-package com.example.bakemeacake;
+package com.example.bakemeacake.ui.recipe;
 
 import android.content.Intent;
 import android.os.Build;
@@ -14,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.bakemeacake.util.DatabaseHandler;
+import com.example.bakemeacake.R;
+import com.example.bakemeacake.Session;
 import com.example.bakemeacake.data.model.Recipe;
 import com.example.bakemeacake.util.PrintHandler;
 import com.example.bakemeacake.util.ShareHandler;

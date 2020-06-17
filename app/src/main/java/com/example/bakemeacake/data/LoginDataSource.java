@@ -2,7 +2,7 @@ package com.example.bakemeacake.data;
 
 import android.content.Context;
 
-import com.example.bakemeacake.DatabaseHandler;
+import com.example.bakemeacake.util.DatabaseHandler;
 import com.example.bakemeacake.data.model.LoggedInUser;
 
 import java.io.IOException;

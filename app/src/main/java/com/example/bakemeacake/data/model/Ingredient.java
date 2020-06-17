@@ -1,8 +1,9 @@
 package com.example.bakemeacake.data.model;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     public int ID;
-    public String Name;
-    public String Amount;
+    public String Ingredient;
     public int Recipe_ID;
 }

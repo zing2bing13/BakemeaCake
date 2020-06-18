@@ -13,6 +13,7 @@ import com.example.bakemeacake.data.model.Instruction;
 import com.example.bakemeacake.data.model.Recipe;
 import com.example.bakemeacake.util.Pager;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
@@ -30,10 +31,13 @@ public class RecipeActivity extends AppCompatActivity implements TabLayout.OnTab
 
         this.dbHandler = new DatabaseHandler(this);
 
+        Bundle bundle = new Bundle();
         Intent intent = getIntent();
         this.recipe = (Recipe) intent.getSerializableExtra("Recipe");
         this.ingredients = dbHandler.GetIngredients(recipe.ID);
         this.instructions = dbHandler.GetInstructions(recipe.ID);
+        bundle.putSerializable("valuesIngredients", (Serializable) this.ingredients);
+        bundle.putSerializable("valuesInstructions", (Serializable) this.instructions);
 
         //Initializing the tablayout
         tabLayout = findViewById(R.id.tab_switchPanes);

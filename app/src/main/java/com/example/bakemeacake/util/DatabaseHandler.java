@@ -37,9 +37,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_TABLE_INGREDIENTS = "Ingredients";
     private static final String RECIPE_COLUMN_NAME_INGREDIENT_ID = "ID";
     private static final String RECIPE_COLUMN_NAME_RECIPE_ID_FK = "Recipe_ID";
-    private static final String RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT = "Amount";
-    private static final String RECIPE_COLUMN_NAME_INGREDIENT_NAME = "Name";
-    private static final String CreateTable_IngredientList = "Create Table " + DATABASE_TABLE_INGREDIENTS + " (" + RECIPE_COLUMN_NAME_INGREDIENT_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_ID_FK + " Integer, " + RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT + " Text, " + RECIPE_COLUMN_NAME_INGREDIENT_NAME + " Text)";
+    private static final String RECIPE_COLUMN_NAME_INGREDIENT = "Ingredient";
+    private static final String CreateTable_IngredientList = "Create Table " + DATABASE_TABLE_INGREDIENTS + " (" + RECIPE_COLUMN_NAME_INGREDIENT_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_ID_FK + " Integer, " + RECIPE_COLUMN_NAME_INGREDIENT + " Text)";
 
     // DB Schema for the Recipe Instructions table
     private static final String DATABASE_TABLE_INSTRUCTIONS = "Instructions";
@@ -122,7 +121,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Gets all recipes for a user
     public ArrayList<Recipe> GetRecipes(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_INGREDIENT_NAME, RECIPE_COLUMN_NAME_USER_ID};
+        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_RECIPE_NAME, RECIPE_COLUMN_NAME_USER_ID};
 
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         try {
@@ -163,8 +162,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(RECIPE_COLUMN_NAME_INGREDIENT_NAME, model.Name);
-        values.put(RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT, model.Amount);
+        values.put(RECIPE_COLUMN_NAME_INGREDIENT, model.Ingredient);
         values.put(RECIPE_COLUMN_NAME_RECIPE_ID_FK, model.Recipe_ID);
 
         return db.insert(DATABASE_TABLE_INGREDIENTS, null, values);
@@ -174,7 +172,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Ingredient> GetIngredients(int recipeId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_INGREDIENT_NAME, RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
+        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_INGREDIENT, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
 
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
         try {
@@ -182,8 +180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             while(dbCursor.moveToNext()){
                 Ingredient ingredient = new Ingredient();
                 ingredient.ID = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID));
-                ingredient.Name = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT_NAME));
-                ingredient.Amount = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT));
+                ingredient.Ingredient = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INGREDIENT));
                 ingredient.Recipe_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID_FK));
                 ingredients.add(ingredient);
             }
@@ -200,8 +197,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(RECIPE_COLUMN_NAME_INGREDIENT_NAME, ingredient.Name);
-        values.put(RECIPE_COLUMN_NAME_INGREDIENT_AMOUNT, ingredient.Amount);
+        values.put(RECIPE_COLUMN_NAME_INGREDIENT, ingredient.Ingredient);
         values.put(RECIPE_COLUMN_NAME_RECIPE_ID_FK, ingredient.Recipe_ID);
 
         return db.update(DATABASE_TABLE_INGREDIENTS, values, "ID = ?", new String[] { Integer.toString(ingredient.ID) });

@@ -13,12 +13,14 @@ public class Pager extends FragmentStatePagerAdapter {
 
     //integer to count number of tabs
     int tabCount;
+    int recipeId;
 
     //Constructor to the class
-    public Pager(FragmentManager fm, int tabCount) {
+    public Pager(FragmentManager fm, int tabCount, int recipeId) {
         super(fm);
         //Initializing tab count
         this.tabCount= tabCount;
+        this.recipeId = recipeId;
     }
 
     //Overriding method getItem
@@ -27,7 +29,9 @@ public class Pager extends FragmentStatePagerAdapter {
         //Returning the current tabs
         switch (position) {
             case 0:
-                return new IngredientsActivity();
+                IngredientsActivity activity = new IngredientsActivity();
+                activity.setRecipeID(recipeId);
+                return activity;
             case 1:
                 return new InstructionsActivity();
             default:

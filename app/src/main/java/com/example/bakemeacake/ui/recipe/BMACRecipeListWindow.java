@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class BMACRecipeListWindow extends AppCompatActivity {
 
-    private String shareText = null;
     private Session session = null;
     private DatabaseHandler dbHandler = null;
     private ArrayList<Recipe> recipes = null;
@@ -102,29 +101,5 @@ public class BMACRecipeListWindow extends AppCompatActivity {
     private void showFabSnackbar(View v) {
         Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
        .setAction("Action", null).show();
-    }
-
-    private void shareText() {
-        //shareText = df_TextView.getText().toString();
-        shareText = null;
-
-        if (shareText != null) {
-            ShareHandler shareIntent = new ShareHandler(this);
-            //shareIntent.shareText(shareText);
-            //shareIntent.shareHTML(null, "Cake Recipe", shareText);
-            shareIntent.shareFile(shareText);
-        }
-    }
-
-    private void printHTML() {
-        try {
-            //shareText = df_TextView.getText().toString();
-            shareText = null;
-            String htmlEncodedString = TextUtils.htmlEncode(shareText);
-            PrintHandler printer = new PrintHandler(this);
-            printer.doWebViewPrint(htmlEncodedString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

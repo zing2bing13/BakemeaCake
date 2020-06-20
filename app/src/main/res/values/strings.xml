@@ -24,6 +24,7 @@
     <string name="item_placeholder">"item"</string>
 
     <!-- Strings related to sharing -->
+    <string name="button_share">"Share"</string>
     <string name="share_generic">"Share to…"</string>
     <string name="share_photo">"Share photo to…"</string>
     <string name="share_text">"Share recipe to…"</string>
@@ -40,6 +41,7 @@
     <string name="sMime_webp">"image/webp"</string>
 
     <!-- Strings related to printing -->
+    <string name="button_print">"Print"</string>
     <string name="print_testDoc">"<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p></body></html>"</string>
     <string name="print_testWeb">"http://developer.android.com/about/index.html"</string>
     <string name="html_encoding">"UTF-8"</string>

@@ -32,8 +32,6 @@ public class RecipeActivity extends AppCompatActivity implements TabLayout.OnTab
         Intent intent = getIntent();
         this.recipe = (Recipe) intent.getSerializableExtra("Recipe");
 
-        Log.d("BMAC_debug", "The recipe id is " + Integer.toString(recipe.ID));
-
         //Initializing the tablayout
         tabLayout = findViewById(R.id.tab_switchPanes);
 

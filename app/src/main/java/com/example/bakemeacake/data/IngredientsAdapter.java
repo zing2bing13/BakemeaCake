@@ -11,7 +11,7 @@ import com.example.bakemeacake.data.model.Ingredient;
 
 import java.util.ArrayList;
 
-public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
+public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
     private ArrayList<Ingredient> ingredients;
 
     public static class IngredientViewHolder extends RecyclerView.ViewHolder {
@@ -19,11 +19,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
         public IngredientViewHolder(View itemView) {
             super(itemView);
-            this.ingTextView = itemView.findViewById(R.id.ingTextView);
+            this.ingTextView = itemView.findViewById(R.id.ItemTextView);
         }
     }
 
-    public IngredientAdapter(ArrayList<Ingredient> ingredients) {
+    public IngredientsAdapter(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

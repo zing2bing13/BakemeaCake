@@ -43,9 +43,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // DB Schema for the Recipe Instructions table
     private static final String DATABASE_TABLE_INSTRUCTIONS = "Instructions";
     private static final String RECIPE_COLUMN_NAME_INSTRUCTION_ID = "ID";
-    private static final String RECIPE_COLUMN_NAME_INSTRUCTION_STEP = "Step";
     private static final String RECIPE_COLUMN_NAME_INSTRUCTIONS = "Instruction";
-    private static final String CreateTable_InstructionList = "Create Table " + DATABASE_TABLE_INSTRUCTIONS + " (" + RECIPE_COLUMN_NAME_INSTRUCTION_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_ID_FK + " Integer, " + RECIPE_COLUMN_NAME_INSTRUCTION_STEP + " Integer, " + RECIPE_COLUMN_NAME_INSTRUCTIONS + " Text)";
+    private static final String CreateTable_InstructionList = "Create Table " + DATABASE_TABLE_INSTRUCTIONS + " (" + RECIPE_COLUMN_NAME_INSTRUCTION_ID + " Integer Primary Key AutoIncrement, " + RECIPE_COLUMN_NAME_RECIPE_ID_FK + " Integer, " + RECIPE_COLUMN_NAME_INSTRUCTIONS + " Text)";
 
     private static DatabaseHandler myInstance = null;
 
@@ -64,8 +63,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CreateTable_UserAccounts);
         db.execSQL(CreateTable_RecipeList);
-        db.execSQL(CreateTable_IngredientList);
         db.execSQL(CreateTable_InstructionList);
+        db.execSQL(CreateTable_IngredientList);
     }
 
     @Override
@@ -214,7 +213,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(RECIPE_COLUMN_NAME_INSTRUCTION_STEP, model.Step);
         values.put(RECIPE_COLUMN_NAME_INSTRUCTIONS, model.Instruction);
         values.put(RECIPE_COLUMN_NAME_RECIPE_ID_FK, model.Recipe_ID);
 
@@ -225,17 +223,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Instruction> GetInstructions(int recipeId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_INSTRUCTION_STEP, RECIPE_COLUMN_NAME_INSTRUCTIONS, RECIPE_COLUMN_NAME_RECIPE_ID_FK};
+        String[] dbColumns = new String[]{RECIPE_COLUMN_NAME_RECIPE_ID, RECIPE_COLUMN_NAME_RECIPE_ID_FK, RECIPE_COLUMN_NAME_INSTRUCTIONS};
 
         ArrayList<Instruction> instructions = new ArrayList<Instruction>();
         try {
-            Cursor dbCursor = db.query(DATABASE_TABLE_INGREDIENTS, dbColumns, "Recipe_ID = ?", new String[]{ Integer.toString(recipeId) }, null, null, null);
+            Cursor dbCursor = db.query(DATABASE_TABLE_INSTRUCTIONS, dbColumns, "Recipe_ID = ?", new String[]{ Integer.toString(recipeId) }, null, null, null);
             while(dbCursor.moveToNext()){
                 Instruction instruction = new Instruction();
                 instruction.ID = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID));
-                instruction.Step = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INSTRUCTION_STEP));
-                instruction.Instruction = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INSTRUCTIONS));
                 instruction.Recipe_ID  = dbCursor.getInt(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_RECIPE_ID_FK));
+                instruction.Instruction = dbCursor.getString(dbCursor.getColumnIndex(RECIPE_COLUMN_NAME_INSTRUCTIONS));
                 instructions.add(instruction);
             }
         }
@@ -252,7 +249,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(RECIPE_COLUMN_NAME_INSTRUCTIONS, instruction.Instruction);
-        values.put(RECIPE_COLUMN_NAME_INSTRUCTION_STEP, instruction.Step);
         values.put(RECIPE_COLUMN_NAME_RECIPE_ID_FK, instruction.Recipe_ID);
 
         return db.update(DATABASE_TABLE_INSTRUCTIONS, values, "ID = ?", new String[] { Integer.toString(instruction.ID) });

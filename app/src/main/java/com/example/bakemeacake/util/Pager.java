@@ -29,11 +29,13 @@ public class Pager extends FragmentStatePagerAdapter {
         //Returning the current tabs
         switch (position) {
             case 0:
-                IngredientsActivity activity = new IngredientsActivity();
-                activity.setRecipeID(recipeId);
-                return activity;
+                IngredientsActivity ingredientsActivity = new IngredientsActivity();
+                ingredientsActivity.setRecipeID(recipeId);
+                return ingredientsActivity;
             case 1:
-                return new InstructionsActivity();
+                InstructionsActivity instructionsActivity = new InstructionsActivity();
+                instructionsActivity.setRecipeID(recipeId);
+                return instructionsActivity;
             default:
                 return null;
         }

@@ -20,7 +20,8 @@
     <string name="button_bakery">"Bakery"</string>
     <string name="button_signout">"Sign Out"</string>
 
-    <string name="ingredient_placeholder">"ingredient"</string>
+    <!-- String is a placeholder for recipe items like ingredients or instructions -->
+    <string name="item_placeholder">"item"</string>
 
     <!-- Strings related to sharing -->
     <string name="share_generic">"Share to…"</string>

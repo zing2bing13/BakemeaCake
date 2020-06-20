@@ -19,7 +19,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
         public IngredientViewHolder(View itemView) {
             super(itemView);
-            this.ingTextView = itemView.findViewById(R.id.ingTextView);
+            this.ingTextView = itemView.findViewById(R.id.ItemTextView);
         }
     }
 

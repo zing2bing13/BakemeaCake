@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.bakemeacake.util.DatabaseHandler;
 import java.util.ArrayList;
 
 public class InstructionsActivity extends Fragment {
+
     private Recipe recipe = new Recipe();
     private RecyclerView recyclerView;
     private RecyclerView.Adapter instructionAdapter;

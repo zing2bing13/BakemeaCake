@@ -3,15 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</LinearLayout>
+
     <EditText
         android:id="@+id/editIngredient"
         android:layout_width="wrap_content"
@@ -28,4 +25,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="Add" />
+
+
 </RelativeLayout>

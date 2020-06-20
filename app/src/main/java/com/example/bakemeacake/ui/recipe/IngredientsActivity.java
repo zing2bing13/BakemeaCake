@@ -39,20 +39,18 @@ public class IngredientsActivity extends Fragment {
 
         this.dbHandler = new DatabaseHandler(this.getContext());
 
-
-
         Log.d("BMAC_debug", "The Recipe ID in ingredient activity is " + recipe.ID);
         this.ingredients = (ArrayList) dbHandler.GetIngredients(recipe.ID);
 
         Log.d("BMAC_debug", "The ingredients are " + ingredients.get(1).Ingredient);
 
-        View rootView = inflater.inflate(R.layout.content_ingredients, container, false);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_ingredients);
-        //layoutManager = new LinearLayoutManager(getActivity());
-        //recyclerView.setLayoutManager(layoutManager);
+        View ingredientView = inflater.inflate(R.layout.content_ingredients, container, false);
+        recyclerView = ingredientView.findViewById(R.id.recycler_ingredients);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         ingredientAdapter = new IngredientAdapter(ingredients);
         recyclerView.setAdapter(ingredientAdapter);
-        Button addButton = rootView.findViewById(R.id.button_add_ingredient);
+        Button addButton = ingredientView.findViewById(R.id.button_add_ingredient);
 
         addButton.setOnClickListener(new Button.OnClickListener(){
             @Override
@@ -65,10 +63,11 @@ public class IngredientsActivity extends Fragment {
                 ingredient.Recipe_ID = recipe.ID;
                 dbHandler.CreateIngredient(ingredient);
                 dbHandler.close();
+                ingredientAdapter.notifyDataSetChanged();
             }
         });
 
-            return rootView;
+            return ingredientView;
             //Returning the layout file after inflating
             //Change R.layout.tab1 in you classes
           //  return inflater.inflate(R.layout.content_ingredients, container, false);

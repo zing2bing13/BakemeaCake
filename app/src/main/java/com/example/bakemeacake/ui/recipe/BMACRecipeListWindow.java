@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.example.bakemeacake.util.DatabaseHandler;
 import com.example.bakemeacake.R;
-import com.example.bakemeacake.Session;
+import com.example.bakemeacake.util.Session;
 import com.example.bakemeacake.data.model.Recipe;
 import com.example.bakemeacake.util.PrintHandler;
 import com.example.bakemeacake.util.ShareHandler;

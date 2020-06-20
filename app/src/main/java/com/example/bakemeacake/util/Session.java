@@ -1,4 +1,4 @@
-package com.example.bakemeacake;
+package com.example.bakemeacake.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

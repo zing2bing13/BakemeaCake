@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.example.bakemeacake.ui.recipe.BMACRecipeListWindow;
 import com.example.bakemeacake.R;
-import com.example.bakemeacake.RegisterNewUser;
 
 public class LoginActivity extends AppCompatActivity {
 

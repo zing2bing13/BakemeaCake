@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.bakemeacake.util.DatabaseHandler;
 import com.example.bakemeacake.R;
@@ -18,9 +19,6 @@ import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
     private Recipe recipe = null;
-    private List<Ingredient> ingredients = null;
-    private List<Instruction> instructions = null;
-    private DatabaseHandler dbHandler = null;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -29,15 +27,12 @@ public class RecipeActivity extends AppCompatActivity implements TabLayout.OnTab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        this.dbHandler = new DatabaseHandler(this);
 
         Bundle bundle = new Bundle();
         Intent intent = getIntent();
         this.recipe = (Recipe) intent.getSerializableExtra("Recipe");
-        this.ingredients = dbHandler.GetIngredients(recipe.ID);
-        this.instructions = dbHandler.GetInstructions(recipe.ID);
-        bundle.putSerializable("valuesIngredients", (Serializable) this.ingredients);
-        bundle.putSerializable("valuesInstructions", (Serializable) this.instructions);
+
+        Log.d("BMAC_debug", "The recipe id is " + Integer.toString(recipe.ID));
 
         //Initializing the tablayout
         tabLayout = findViewById(R.id.tab_switchPanes);
@@ -52,7 +47,7 @@ public class RecipeActivity extends AppCompatActivity implements TabLayout.OnTab
         tabLayout.setupWithViewPager(viewPager);
 
         //Creating our pager adapter
-        Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount());
+        Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount(), recipe.ID);
 
         //Adding adapter to pager
         viewPager.setAdapter(adapter);

@@ -39,10 +39,8 @@ public class IngredientsActivity extends Fragment {
 
         this.dbHandler = new DatabaseHandler(this.getContext());
 
-        Log.d("BMAC_debug", "The Recipe ID in ingredient activity is " + recipe.ID);
         this.ingredients = (ArrayList) dbHandler.GetIngredients(recipe.ID);
 
-        Log.d("BMAC_debug", "The ingredients are " + ingredients.get(1).Ingredient);
 
         View ingredientView = inflater.inflate(R.layout.content_ingredients, container, false);
         recyclerView = ingredientView.findViewById(R.id.recycler_ingredients);

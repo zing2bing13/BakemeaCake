@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.util.Patterns;
 
-import com.example.bakemeacake.Session;
+import com.example.bakemeacake.util.Session;
 import com.example.bakemeacake.data.LoginRepository;
 import com.example.bakemeacake.data.Result;
 import com.example.bakemeacake.data.model.LoggedInUser;

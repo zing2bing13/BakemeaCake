@@ -11,6 +11,7 @@ import android.print.PrintJob;
 import android.print.PrintManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.print.PrintHelper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -47,8 +48,8 @@ public class PrintHandler extends Activity {
         } else if (apiLevel >= 21) {
             // Create a WebView object specifically for printing
             WebView webView = new WebView(mContext);
-
             webView.setWebViewClient(new WebViewClient() {
+
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     return false;
                 }
@@ -62,23 +63,8 @@ public class PrintHandler extends Activity {
                 }
             });
 
-            // Generate an HTML document on the fly:
-            /*
-            String htmlTestDoc = mContext.getResources().getString(R.string.print_testDoc);
-            webView.loadDataWithBaseURL(
-                    null,
-                    htmlTestDoc,
-                    mContext.getResources().getString(R.string.sMime_html),
-                    mContext.getResources().getString(R.string.html_encoding),
-                    null);
-             */
-
-            webView.loadDataWithBaseURL(
-                    null,
-                    htmlDocument,
-                    mContext.getResources().getString(R.string.sMime_html),
-                    mContext.getResources().getString(R.string.html_encoding),
-                    null);
+            htmlDocument = HTMLify(htmlDocument);
+            webView.loadDataWithBaseURL(null,htmlDocument,mContext.getResources().getString(R.string.sMime_html),mContext.getResources().getString(R.string.html_encoding),null);
 
             // Print an existing web page (remember to request INTERNET permission!):
             //webView.loadUrl(mContext.getResources().getString(R.string.print_testWeb));
@@ -112,5 +98,50 @@ public class PrintHandler extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String HTMLify(String htmlString) {
+        char[] text_input;
+        StringBuilder output_html = new StringBuilder();
+        int counter = 0;
+
+        text_input = htmlString.toCharArray();
+
+        if(htmlString.length() > 0) {
+            output_html.append("<html><body><p>");
+
+            for (counter=0; counter < htmlString.length(); counter++) {
+                switch(text_input[counter]) {
+                    case '<':
+                        output_html.append("&lt;");
+                        break;
+                    case '>':
+                        output_html.append("&gt;");
+                        break;
+                    case '&':
+                        output_html.append("&amp;");
+                        break;
+                    case '"':
+                        output_html.append("&quot;");
+                        break;
+                    case '\n':
+                        output_html.append("<br>");
+                        break;
+                    case '\r':
+                        output_html.append("<br>");
+                        break;
+                    // We need Tab support here, because we print StackTraces as HTML
+                    case '\t':
+                        output_html.append("&nbsp; &nbsp; &nbsp;");
+                        break;
+                    default:
+                        output_html.append(text_input[counter]);
+                }
+            }
+
+            output_html.append("</p></body></html>");
+        }
+
+        return output_html.toString();
     }
 }

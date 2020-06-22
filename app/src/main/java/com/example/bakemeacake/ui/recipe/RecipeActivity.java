@@ -130,7 +130,7 @@ public class RecipeActivity extends AppCompatActivity implements TabLayout.OnTab
             ShareHandler shareIntent = new ShareHandler(this);
             //shareIntent.shareText(shareText);
             //shareIntent.shareHTML(null, "Cake Recipe", shareText);
-            shareIntent.shareFile(shareText);
+            shareIntent.shareText(shareText);
         }
     }
 

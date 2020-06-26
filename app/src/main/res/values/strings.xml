@@ -3,10 +3,52 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="action_add_user">New User</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="welcome">"Welcome! "</string>
+    <string name="new_user_saved">"Registered User: "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <!-- Strings related to Recipe List -->
+    <string name="title_activity_b_m_a_c_recipe_list_window">Bake me a Cake!</string>
+    <string name="button_search">"Search"</string>
+    <string name="button_bakery">"Bakery"</string>
+    <string name="button_signout">"Sign Out"</string>
+
+    <!-- String is a placeholder for recipe items like ingredients or instructions -->
+    <string name="item_placeholder">"item"</string>
+
+    <!-- Strings related to sharing -->
+    <string name="button_share">"Share"</string>
+    <string name="share_generic">"Share to…"</string>
+    <string name="share_photo">"Share photo to…"</string>
+    <string name="share_text">"Share recipe to…"</string>
+    <string name="share_email">"Email recipe to…"</string>
+    <string name="sMime_text">"text/plain"</string>
+    <string name="sMime_html">"text/HTML"</string>
+    <string name="sMime_bmp">"image/bmp"</string>
+    <string name="sMime_gif">"image/gif"</string>
+    <string name="sMime_ico">"image/vnd.microsoft.icon"</string>
+    <string name="sMime_jpeg">"image/jpeg"</string>
+    <string name="sMime_png">"image/png"</string>
+    <string name="sMime_svg">"image/svg+xml"</string>
+    <string name="sMime_tif">"image/tiff"</string>
+    <string name="sMime_webp">"image/webp"</string>
+
+    <!-- Strings related to printing -->
+    <string name="button_print">"Print"</string>
+    <string name="print_testDoc">"<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p></body></html>"</string>
+    <string name="print_testWeb">"http://developer.android.com/about/index.html"</string>
+    <string name="html_encoding">"UTF-8"</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="lbl_ingredients">Ingredients</string>
+    <string name="lbl_instructions">Instructions</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_new_recipe">New Recipe</string>
 </resources>

@@ -16,7 +16,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:layout_alignParentBottom="true"
-        android:text="Name" />
+        android:hint="Ingredient" />
 
     <Button
         android:id="@+id/button_add_ingredient"

@@ -53,7 +53,9 @@ public class InstructionsActivity extends Fragment {
                 instruction.Recipe_ID = recipe.ID;
                 dbHandler.CreateInstruction(instruction);
                 dbHandler.close();
+                instructions.add(instruction);
                 instructionAdapter.notifyDataSetChanged();
+                instructionText.setText("");
             }
         });
 

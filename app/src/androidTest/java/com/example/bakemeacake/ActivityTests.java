@@ -90,6 +90,9 @@ public class ActivityTests {
         onData(hasToString(startsWith(newRecipeName)))
                 .inAdapterView(withId(R.id.recipe_list))
                 .check(matches(isDisplayed()));
-                //.perform(click());
+
+        onData(hasToString(startsWith(newRecipeName)))
+                .inAdapterView(withId(R.id.recipe_list))
+                .perform(click());
     }
 }

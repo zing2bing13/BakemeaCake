@@ -52,7 +52,9 @@ public class IngredientsActivity extends Fragment {
                 ingredient.Recipe_ID = recipe.ID;
                 dbHandler.CreateIngredient(ingredient);
                 dbHandler.close();
+                ingredients.add(ingredient);
                 ingredientAdapter.notifyDataSetChanged();
+                ingredientText.setText("");
             }
         });
 

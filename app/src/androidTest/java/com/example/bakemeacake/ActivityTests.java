@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Random;
 import java.util.UUID;
 
 import static androidx.test.espresso.Espresso.onData;
@@ -18,8 +19,11 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.startsWith;
 
@@ -87,9 +91,41 @@ public class ActivityTests {
         // Check to see if recipe list is displayed
         onView(withId(R.id.bmac_recipe_list_window)).check(matches(isDisplayed()));
 
+        // Ensure we have the recipe added
         onData(hasToString(startsWith(newRecipeName)))
                 .inAdapterView(withId(R.id.recipe_list))
                 .check(matches(isDisplayed()));
-                //.perform(click());
+
+        // Click on recipe
+        onData(hasToString(startsWith(newRecipeName)))
+                .inAdapterView(withId(R.id.recipe_list))
+                .perform(click());
+
+        // Ensure our recipe activity is now loaded
+        onView(withId(R.id.recipe_activity)).check(matches(isDisplayed()));
+
+        // Ensure by default we're on the ingredients view
+        onView(withId(R.id.content_ingredients)).check(matches(isDisplayed()));
+
+        Random random = new Random();
+        String newIngredient = "Eggs x" + (1 + random.nextInt(99));
+
+        // Add new ingredient
+        onView(withId(R.id.editIngredient)).perform(typeText(newIngredient));
+        onView(withId(R.id.button_add_ingredient)).perform(click());
+        onView(withId(R.id.recycler_ingredients)).check(matches(isDisplayed()));
+
+        // Switch to instruction view and ensure it's displayed
+        onView(allOf(withText("Instructions"), isDescendantOfA(withId(R.id.tab_switchPanes))))
+                .perform(click())
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.content_instructions)).check(matches(isDisplayed()));
+
+        // Add new Instruction
+        String newInstruction = "Mix " + (1 + random.nextInt(99)) + " times.";
+
+        onView(withId(R.id.editInstructions)).perform(typeText(newInstruction));
+        onView(withId(R.id.button_add_instructions)).perform(click());
+        onView(withId(R.id.recycler_instructions)).check(matches(isDisplayed()));
     }
 }
